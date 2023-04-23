@@ -3,9 +3,8 @@ import { Schema } from 'mongoose';
 
 const userModel = new Schema({
     userName: String,
-    userLastName: String,
     userEmail: String,
-    pass: String
+    userPass: String
 });
 
 const User = mongoose.model('User', userModel);

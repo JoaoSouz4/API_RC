@@ -5,12 +5,13 @@ import startDB from '../config/db';
 
 require('dotenv').config();
 
-const cors = require('cors')
+const cors = require('cors');
 
 const port = _default.port;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use(routes);
 
 app.listen(port, () => {

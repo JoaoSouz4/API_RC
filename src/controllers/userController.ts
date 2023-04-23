@@ -13,9 +13,8 @@ class UserController {
 
         const user = new User({
             userName,
-            userLastName,
             userEmail,
-            pass: passHash
+            userPass: passHash
         });
 
         try {
@@ -31,8 +30,8 @@ class UserController {
 
     public static async userLogin(req: Request, res: Response) {
 
-        const { userEmail } = req.body;
-        const user: any = await User.findOne({userEmail: userEmail});
+        const { userName } = req.body;
+        const user: any = await User.findOne({userName: userName});
 
         try{
             const secret = process.env.SECRET;
