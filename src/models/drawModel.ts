@@ -7,7 +7,9 @@ const drawModel = new Schema ({
     data: String,
     description: String,
     categories: Array,
-    url: Array
+    url: Array,
+    usersLiked: Array,
+    usersComments: Array
 })
 
 const Draw = mongoose.model('draws', drawModel);

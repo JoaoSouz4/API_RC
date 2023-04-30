@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 const jwt = require('jsonwebtoken');
 
-export const checkToken = (req: Request, res: Response, next: NextFunction) => {
+export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(" ")[1];
     
@@ -9,7 +9,7 @@ export const checkToken = (req: Request, res: Response, next: NextFunction) => {
     try {
         const secret = process.env.secret;
         const authData = jwt.verify(token, secret);
-        return res.status(200).json({authData});
+        next();
     } catch (error) {
          return res.status(400).json({message: "Token Inválido", status: false,});
     }
