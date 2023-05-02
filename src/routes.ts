@@ -12,6 +12,7 @@ routes.post('/register', registerValidation, UserController.userRegister);
 routes.post('/login', loginValidation, UserController.userLogin);
 
 routes.get('/getdraws', DrawController.getAllDraws);
+routes.get('/getdraws/:section', DrawController.getSomeDraw);
 routes.post('/store', DrawController.store);
 routes.get('/auth', checkToken);
 

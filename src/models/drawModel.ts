@@ -6,6 +6,7 @@ const drawModel = new Schema ({
     font: String,
     data: String,
     description: String,
+    section: String,
     categories: Array,
     url: Array,
     usersLiked: Array,
