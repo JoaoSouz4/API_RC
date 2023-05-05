@@ -21,4 +21,5 @@ routes.post('/deslikepost/:iduser/:idpost', checkAuth, UserController.userDeslik
 
 routes.post('/insert/:userid/:postid/:commentary', checkAuth, UserController.userComment);
 routes.get('/getcomments/:id', UserController.getComments);
+routes.post('/dropcomment/:idcomment/:idpost',checkAuth, UserController.dropComment);
 export default routes;

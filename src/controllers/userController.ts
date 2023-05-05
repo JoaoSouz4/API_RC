@@ -97,7 +97,8 @@ class UserController {
             return res.status(200).json({
                 message: "Curtida tirada do registro",
                 isSucess: true,
-                currentQtdLikes: newFind?.usersLiked.length
+                currentQtdLikes: newFind?.usersLiked.length,
+                resp
             });
 
         } catch (error) {
@@ -115,14 +116,14 @@ class UserController {
         const user = await User.findById({_id: userId});
         const post = await Draw.findById({_id: postId});
 
-        const newComment = await Commentary.create({
+        try {
+            post?.usersComments.push( await Commentary.create({
                 idUser: userId,
                 idPost: postId,
                 userName: user?.userName,
                 commentary: commentary
-        })
-        try {
-            post?.usersComments.push({newComment});
+        }));
+
             post?.save();
             return res.status(200).json({ 
                 message: "Comentário registrado com sucesso", 
@@ -142,6 +143,25 @@ class UserController {
         return res.status(200).json({
             isSucess: true,
             currentComments: post?.usersComments
+        });
+    }
+
+    public static async dropComment (req: Request, res: Response){
+        const postId = req.params.idpost;
+        const commentId = req.params.idcomment;
+
+        const post : any = await Draw.findById({ _id: postId});
+
+        for( let i in post.usersComments ){
+
+            if (post.usersComments[i]._id == commentId){
+                post.usersComments.splice(i, 1);
+            }
+        }
+        await post.save()
+        return res.status(200).json({
+            isSucess: true,
+            currentComments : post.usersComments
         });
     }
 

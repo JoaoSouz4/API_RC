@@ -35,7 +35,6 @@ class DrawController {
 
     public static async getSomeDraw(req: Request, res: Response){
         const section = req.params.section;
-        console.log(section)
         const draw = await Draw.find({ section: section});
         if(!draw) return res.status(400).json({ message: "Tipo de desenho não encontrado"});
         return res.status(200).json( { isSucess: true, draw});
