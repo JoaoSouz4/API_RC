@@ -9,6 +9,7 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     try {
         const secret = process.env.secret;
         const authData = jwt.verify(token, secret);
+        console.log(authData)
         next();
     } catch (error) {
          return res.status(400).json({message: "Token Inválido", status: false,});
