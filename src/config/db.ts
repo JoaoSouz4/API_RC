@@ -8,6 +8,7 @@ export default async function startDB() {
         await mongoose.connect(url);
         console.log("Connect at MongoDB")
     } catch (error) {
+        console.log(_default.dbUser, _default.dbPass)
         console.log('Erro na conexão com o MongoDB');
     }
 }
