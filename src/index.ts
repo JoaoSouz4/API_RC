@@ -1,7 +1,7 @@
 import express from 'express';
 import routes from './routes';
-import _default from '../config/default';
-import startDB from '../config/db';
+import _default from './config/default';
+import startDB from './config/db'
 
 require('dotenv').config();
 
