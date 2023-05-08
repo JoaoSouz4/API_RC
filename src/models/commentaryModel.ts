@@ -6,6 +6,7 @@ const   CommentaryModel = new Schema ({
     userName: String,
     idUser: String,
     idPost: String,
+    createdAt: Date
 })
 
 const Commentary = mongoose.model('comment', CommentaryModel);
