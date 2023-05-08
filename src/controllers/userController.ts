@@ -123,6 +123,7 @@ class UserController {
                 idPost: postId,
                 userName: user?.userName,
                 commentary: commentary,
+                createdAt: date
         }));
 
             post?.save();
