@@ -121,7 +121,8 @@ class UserController {
                 idUser: userId,
                 idPost: postId,
                 userName: user?.userName,
-                commentary: commentary
+                commentary: commentary,
+                createdAt: new Date()
         }));
 
             post?.save();
