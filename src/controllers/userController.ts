@@ -115,14 +115,14 @@ class UserController {
 
         const user = await User.findById({_id: userId});
         const post = await Draw.findById({_id: postId});
-
+        const date = new Date();
         try {
             post?.usersComments.push( await Commentary.create({
                 idUser: userId,
                 idPost: postId,
                 userName: user?.userName,
                 commentary: commentary,
-                createdAt: new Date()
+                createdAt: date
         }));
 
             post?.save();
