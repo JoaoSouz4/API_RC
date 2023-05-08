@@ -330,7 +330,7 @@ routes.get("/getcomments/:id", userController_default.getComments);
 routes.post("/dropcomment/:idcomment/:idpost", checkAuth, userController_default.dropComment);
 var routes_default = routes;
 
-// config/default.ts
+// src/config/default.ts
 require("dotenv").config();
 var default_default = {
   port: process.env.PORT,
@@ -338,7 +338,7 @@ var default_default = {
   dbPass: process.env.DB_PASS
 };
 
-// config/db.ts
+// src/config/db.ts
 var import_mongoose7 = __toESM(require("mongoose"));
 async function startDB() {
   const url = `mongodb+srv://${default_default.dbUser}:${default_default.dbPass}@cluster0.gc4ly0f.mongodb.net/users_RC?retryWrites=true&w=majority`;
