@@ -8,8 +8,8 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     if(!token || token == null) return res.status(401).json({message: "Acesso negado", status: false,});
     try {
         const secret = process.env.secret;
+        console.log(secret)
         const authData = jwt.verify(token, secret);
-        console.log(authData)
         next();
     } catch (error) {
          return res.status(400).json({message: "Token Inválido", status: false,});
