@@ -7,7 +7,7 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction) => {
     
     if(!token || token == null) return res.status(401).json({message: "Acesso negado", status: false,});
     try {
-        const secret = process.env.secret;
+        const secret = process.env.SECRET;
         console.log(secret)
         const authData = jwt.verify(token, secret);
         next();
