@@ -8,7 +8,7 @@ export const registerValidation = async (req: Request, res: Response, next: Next
     const userN: any = await User.findOne({userName: userName});
 
     if(userN) return res.status(401).json({
-        message: `${userName} não não está disponível como nome de usuário.`,
+        message: `${userName} não está disponível como nome de usuário.`,
         isSucess: false,
     });
     

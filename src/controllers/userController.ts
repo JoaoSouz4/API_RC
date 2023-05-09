@@ -13,16 +13,18 @@ class UserController {
         const salt = await bcrypt.genSalt(12);
         const  passHash = await bcrypt.hash(userPass, salt);
 
-        const user = new User({
-            userName,
-            userEmail,
-            userPass: passHash
-        });
+        const isUser = await User.find({userName : userName});
+        const isEmail = await User.find({userEmail : userEmail});
 
         try {
+            const user = new User({
+                userName,
+                userEmail,
+                userPass: passHash
+            });
             await user.save();
             return res.status(200).json({
-                message: "Cadastro realizdo com sucesso",
+                message: "Cadastro realizado com sucesso",
                 isSucess: true
             });
         }catch(error) {
