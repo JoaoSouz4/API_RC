@@ -70,7 +70,8 @@ var CommentaryModel = new import_mongoose6.Schema({
   commentary: String,
   userName: String,
   idUser: String,
-  idPost: String
+  idPost: String,
+  createdAt: Date
 });
 var Commentary = import_mongoose5.default.model("comment", CommentaryModel);
 var commentaryModel_default = Commentary;
@@ -83,15 +84,17 @@ var UserController = class {
     const { userName, userEmail, userPass } = req.body;
     const salt = await bcrypt.genSalt(12);
     const passHash = await bcrypt.hash(userPass, salt);
-    const user = new userModel_default({
-      userName,
-      userEmail,
-      userPass: passHash
-    });
+    const isUser = await userModel_default.find({ userName });
+    const isEmail = await userModel_default.find({ userEmail });
     try {
+      const user = new userModel_default({
+        userName,
+        userEmail,
+        userPass: passHash
+      });
       await user.save();
       return res.status(200).json({
-        message: "Cadastro realizdo com sucesso",
+        message: "Cadastro realizado com sucesso",
         isSucess: true
       });
     } catch (error) {
@@ -163,12 +166,14 @@ var UserController = class {
     const commentary = req.params.commentary;
     const user = await userModel_default.findById({ _id: userId });
     const post = await drawModel_default.findById({ _id: postId });
+    const date = /* @__PURE__ */ new Date();
     try {
       post?.usersComments.push(await commentaryModel_default.create({
         idUser: userId,
         idPost: postId,
         userName: user?.userName,
-        commentary
+        commentary,
+        createdAt: date
       }));
       post?.save();
       return res.status(200).json({
@@ -214,7 +219,7 @@ var registerValidation = async (req, res, next) => {
   const userN = await userModel_default.findOne({ userName });
   if (userN)
     return res.status(401).json({
-      message: `${userName} n\xE3o n\xE3o est\xE1 dispon\xEDvel como nome de usu\xE1rio.`,
+      message: `${userName} n\xE3o est\xE1 dispon\xEDvel como nome de usu\xE1rio.`,
       isSucess: false
     });
   if (user)
@@ -297,7 +302,7 @@ var checkToken = (req, res, next) => {
   if (!token || token == null)
     return res.status(401).json({ message: "Acesso negado", status: false });
   try {
-    const secret = process.env.secret;
+    const secret = process.env.SECRET;
     const authData = jwt2.verify(token, secret);
     return res.status(200).json({ authData });
   } catch (error) {
@@ -310,12 +315,14 @@ var jwt3 = require("jsonwebtoken");
 var checkAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
+  console.log(authHeader);
+  console.log(token);
   if (!token || token == null)
     return res.status(401).json({ message: "Acesso negado", status: false });
   try {
-    const secret = process.env.secret;
+    const secret = process.env.SECRET;
+    console.log(secret);
     const authData = jwt3.verify(token, secret);
-    console.log(authData);
     next();
   } catch (error) {
     return res.status(400).json({ message: "Token Inv\xE1lido", status: false });

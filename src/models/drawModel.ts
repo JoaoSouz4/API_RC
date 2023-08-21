@@ -11,7 +11,7 @@ const drawModel = new Schema ({
     url: Array,
     usersLiked: Array,
     usersComments: Array
-})
+});
 
 const Draw = mongoose.model('draws', drawModel);
 

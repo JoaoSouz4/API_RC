@@ -39,7 +39,8 @@ var CommentaryModel = new import_mongoose2.Schema({
   commentary: String,
   userName: String,
   idUser: String,
-  idPost: String
+  idPost: String,
+  createdAt: Date
 });
 var Commentary = import_mongoose.default.model("comment", CommentaryModel);
 var commentaryModel_default = Commentary;

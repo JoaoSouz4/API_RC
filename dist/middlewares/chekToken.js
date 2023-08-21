@@ -30,7 +30,7 @@ var checkToken = (req, res, next) => {
   if (!token || token == null)
     return res.status(401).json({ message: "Acesso negado", status: false });
   try {
-    const secret = process.env.secret;
+    const secret = process.env.SECRET;
     const authData = jwt.verify(token, secret);
     return res.status(200).json({ authData });
   } catch (error) {

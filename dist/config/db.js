@@ -50,6 +50,7 @@ async function startDB() {
     await import_mongoose.default.connect(url);
     console.log("Connect at MongoDB");
   } catch (error) {
+    console.log(default_default.dbUser, default_default.dbPass);
     console.log("Erro na conex\xE3o com o MongoDB");
   }
 }

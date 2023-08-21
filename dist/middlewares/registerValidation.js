@@ -52,7 +52,7 @@ var registerValidation = async (req, res, next) => {
   const userN = await userModel_default.findOne({ userName });
   if (userN)
     return res.status(401).json({
-      message: `${userName} n\xE3o n\xE3o est\xE1 dispon\xEDvel como nome de usu\xE1rio.`,
+      message: `${userName} n\xE3o est\xE1 dispon\xEDvel como nome de usu\xE1rio.`,
       isSucess: false
     });
   if (user)

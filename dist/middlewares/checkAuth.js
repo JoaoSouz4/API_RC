@@ -27,12 +27,14 @@ var jwt = require("jsonwebtoken");
 var checkAuth = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
+  console.log(authHeader);
+  console.log(token);
   if (!token || token == null)
     return res.status(401).json({ message: "Acesso negado", status: false });
   try {
-    const secret = process.env.secret;
+    const secret = process.env.SECRET;
+    console.log(secret);
     const authData = jwt.verify(token, secret);
-    console.log(authData);
     next();
   } catch (error) {
     return res.status(400).json({ message: "Token Inv\xE1lido", status: false });
